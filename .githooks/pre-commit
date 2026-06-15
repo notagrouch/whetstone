@@ -1,0 +1,37 @@
+#!/bin/bash
+# pre-commit — secret + codename leak protection
+# Codename list lives in .git/hooks/codenames.private (NOT tracked).
+set -e
+
+CODENAMES_FILE="$(git rev-parse --git-dir)/hooks/codenames.private"
+
+# 1. Codename denylist (LOCAL ONLY — never committed, so the patterns don't leak)
+if [ -f "$CODENAMES_FILE" ]; then
+  PATTERN=$(grep -v '^#' "$CODENAMES_FILE" | grep -v '^$' | paste -sd'|' -)
+  if [ -n "$PATTERN" ]; then
+    LEAKS=$(git diff --cached --name-only -z 2>/dev/null | \
+      xargs -0 -I{} sh -c '
+        case "{}" in *.png|*.jpg|*.jpeg|*.gif|*.pdf|*.zip|*.tar.gz|*.ico) ;;
+        *) git show ":{}" 2>/dev/null | grep -iEn "'"$PATTERN"'" | sed "s|^|{}: |" ;;
+        esac
+      ' 2>/dev/null || true)
+    if [ -n "$LEAKS" ]; then
+      echo "⛔ pre-commit BLOCKED — codename denylist hit:"
+      echo "$LEAKS" | head -20
+      echo ""
+      echo "If false positive, edit $CODENAMES_FILE or override with: git commit --no-verify"
+      exit 1
+    fi
+  fi
+fi
+
+# 2. gitleaks scan (catches API keys, tokens, PEM files, etc.)
+if command -v gitleaks >/dev/null 2>&1; then
+  if ! gitleaks protect --staged --redact --no-banner 2>&1; then
+    echo "⛔ pre-commit BLOCKED — gitleaks detected secrets"
+    exit 1
+  fi
+else
+  echo "⚠ gitleaks not installed; secret-scan skipped"
+  echo "  Install: brew install gitleaks"
+fi
