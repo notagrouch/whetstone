@@ -1,0 +1,38 @@
+{
+  "name": "whetstone",
+  "version": "0.1.0",
+  "description": "Cross-platform agent skills, MCP servers, and tooling. Includes a video-production discipline stack (engine-agnostic + Remotion-specific + HyperFrames-lens skills).",
+  "author": {
+    "name": "notagrouch",
+    "url": "https://github.com/notagrouch"
+  },
+  "homepage": "https://github.com/notagrouch/whetstone",
+  "repository": "https://github.com/notagrouch/whetstone",
+  "license": "MIT",
+  "keywords": [
+    "video",
+    "remotion",
+    "hyperframes",
+    "production",
+    "discipline",
+    "skills",
+    "agent",
+    "education",
+    "humanizer"
+  ],
+  "skills": "./plugins/",
+  "interface": {
+    "displayName": "whetstone",
+    "shortDescription": "Cross-platform agent skills with a video-production discipline stack",
+    "longDescription": "Whetstone is a public, standards-based monorepo of agent skills. The headline package is a three-skill video-production stack: video-discipline (engine-agnostic 12 disciplines + 5-stage pipeline), video-remotion (Remotion-specific receipts), and video-hyperframes (thin lens over HeyGen's HyperFrames). Designed to work across Claude Code, Copilot CLI, Cursor, Gemini CLI, and any MCP-aware agent client.",
+    "developerName": "notagrouch",
+    "category": "Design",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/notagrouch/whetstone",
+    "defaultPrompt": [
+      "Plan a 60-second educational explainer video using the video-discipline skill",
+      "Apply the humanizer-grep gate to this narration draft",
+      "Diagnose density vs pace on the last render"
+    ]
+  }
+}

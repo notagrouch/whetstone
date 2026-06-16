@@ -1,0 +1,28 @@
+{
+  "$schema": "https://cursor.com/schemas/cursor-plugin/plugin.json",
+  "name": "whetstone",
+  "displayName": "whetstone",
+  "version": "0.1.0",
+  "description": "Cross-platform agent skills, MCP servers, and tooling. Includes a video-production discipline stack (engine-agnostic + Remotion-specific + HyperFrames-lens skills).",
+  "author": {
+    "name": "notagrouch"
+  },
+  "publisher": "notagrouch",
+  "homepage": "https://github.com/notagrouch/whetstone",
+  "repository": "https://github.com/notagrouch/whetstone",
+  "license": "MIT",
+  "category": "developer-tools",
+  "keywords": [
+    "video",
+    "remotion",
+    "hyperframes",
+    "production",
+    "discipline",
+    "skills",
+    "agent",
+    "education",
+    "humanizer"
+  ],
+  "tags": ["video", "animation", "design", "workflow", "education"],
+  "skills": "./plugins/"
+}
