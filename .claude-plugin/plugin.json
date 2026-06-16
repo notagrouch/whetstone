@@ -1,0 +1,12 @@
+{
+  "name": "whetstone",
+  "description": "Cross-platform agent skills, MCP servers, and tooling. General-purpose, standards-based. Includes a video-production discipline stack (engine-agnostic + Remotion-specific + HyperFrames-lens skills).",
+  "version": "0.1.0",
+  "author": {
+    "name": "notagrouch",
+    "url": "https://github.com/notagrouch"
+  },
+  "homepage": "https://github.com/notagrouch/whetstone",
+  "repository": "https://github.com/notagrouch/whetstone",
+  "license": "MIT"
+}

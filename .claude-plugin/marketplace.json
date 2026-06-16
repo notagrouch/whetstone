@@ -1,0 +1,16 @@
+{
+  "name": "whetstone",
+  "owner": {
+    "name": "notagrouch",
+    "url": "https://github.com/notagrouch"
+  },
+  "plugins": [
+    {
+      "name": "whetstone",
+      "source": "./",
+      "description": "Cross-platform agent skills for video production discipline, MCP servers, and tooling. Designed to work with Claude Code, Copilot CLI, Gemini CLI, and any MCP-aware agent client.",
+      "homepage": "https://github.com/notagrouch/whetstone",
+      "license": "MIT"
+    }
+  ]
+}
