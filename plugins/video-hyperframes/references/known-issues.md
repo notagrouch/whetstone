@@ -4,7 +4,7 @@ Local catalog of friction we've hit running HyperFrames. Update as new issues su
 
 ## Active issues
 
-### 1. Node engine mismatch (HyperFrames requires Node >=22; macOS often runs older)
+### ~~1. Node engine mismatch (HyperFrames requires Node >=22; macOS often runs older)~~ — RESOLVED 2026-06-16 (see Resolved issues)
 
 **Symptom on Node v20.19.0:**
 
@@ -58,7 +58,27 @@ This is the puppeteer/playwright launch timeout. The headless Chrome subprocess 
 
 ## Resolved issues
 
-(none yet)
+### 1. Node engine mismatch — RESOLVED 2026-06-16 (lifedash#654)
+
+**Was:** HyperFrames requires Node >=22. Smoke test on workstation42 (Node v20.19.0) emitted `EBADENGINE` warning; lint passed but `validate` / `inspect` timed out at 30s on the headless Chrome WebSocket endpoint.
+
+**Resolution:** Upgraded workstation42 to Node 22.22.3 via `sudo n 22`. Required two follow-ups:
+1. `corepack enable` (lost during major-version bump)
+2. `rm -rf ~/.npm/_npx` to force native-binding packages (specifically `sharp`) to rebuild against Node 22 — first `npx hyperframes init` after the upgrade failed with a `sharp` loader error until the cache was cleared
+
+**Verification (Node 22.22.3):**
+- `npm run check` (lint + validate + inspect): all green, no timeout
+- `npm run render`: 10s test mp4 produced cleanly in ~31s wall time
+- `ffprobe` reads duration: 10.000000 seconds
+- remotion-studio reinstalls cleanly on Node 22
+
+**Workaround for older Node (if a fresh box needs to run HF):** see the pre-upgrade workaround at the bottom of this file — `n 22` or `nvm install 22 && nvm use 22`, then clear `~/.npm/_npx` before first `npx hyperframes` invocation.
+
+### 2. validate / inspect 30s timeout — RESOLVED 2026-06-16 (was downstream of issue 1)
+
+**Was:** `Timed out after 30000 ms while waiting for the WS endpoint URL to appear in stdout` on `npm run check`.
+
+**Resolution:** Was a symptom of issue 1 (Node 20 didn't satisfy headless Chrome's runtime needs cleanly). On Node 22 the WebSocket endpoint comes up within ~2 seconds and inspect completes normally.
 
 ## How to file a new issue
 
