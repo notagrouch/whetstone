@@ -1,12 +1,15 @@
 ---
-name: video-toolkit
-description: Production discipline for short-form educational videos (60-130s, IG-Reels-shape) rendered with Remotion + TTS narration. Use when planning, scripting, rendering, or shipping a multi-chapter educational series; covers pacing, voice, density, build config, and version control.
+name: video-remotion
+description: Remotion-specific production discipline for short-form educational videos (60-130s, IG-Reels-shape) rendered with Remotion + TTS narration. Use when planning, scripting, rendering, or shipping a multi-chapter educational series on the Remotion stack. Engine-agnostic disciplines live in the sibling video-discipline skill; HyperFrames-specific lens lives in video-hyperframes.
 license: MIT
+prerequisites: [video-discipline]
 ---
 
-# video-toolkit
+# video-remotion
 
-Hard-won production discipline for short-form educational videos (60-130s, IG-Reels-shape) rendered with [Remotion](https://www.remotion.dev/) + TTS narration. Extracted from production of an 8-chapter educational series (26 distinct renders, Ch1 took 8 iterations to lock; Ch6-8 shipped on v01).
+Hard-won Remotion-specific production discipline for short-form educational videos (60-130s, IG-Reels-shape) rendered with [Remotion](https://www.remotion.dev/) + TTS narration. Extracted from production of an 8-chapter educational series (26 distinct renders, Ch1 took 8 iterations to lock; Ch6-8 shipped on v01).
+
+The engine-agnostic production disciplines (pacing, voice lock, density floor, pace adjustment, version control, etc.) live in the sibling **video-discipline** skill. This skill carries the Remotion-specific receipts (concurrency settings, ChapterReel-style monolith conventions, Remotion CLI quirks) that the discipline layer alone can't capture.
 
 This skill is **opinionated**. The opinions are receipts of what cost us iteration tax. Follow them or pay the tax yourself.
 
