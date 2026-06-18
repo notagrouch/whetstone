@@ -194,6 +194,51 @@ See `references/failure-mode-catalog.md` for the working catalog with seven cano
 
 **Pattern:** every failure mode maps to a discipline above. When a new failure type appears, add a row to the catalog AND add the prevention to the matching discipline.
 
+### 11. Delivery bundle — a chapter is not shipped until every required artifact exists
+
+The pipeline doesn't end at "rendered MP4." A chapter ships only when the **full delivery bundle** is on disk and accounted for. Every prior series that improvised this list ended up missing artifacts at post time (no 2x for high-DPI screens, no IG caption written, wrong description format, etc.).
+
+#### Required artifacts (every chapter)
+
+| # | Artifact | Naming convention | Source | Required |
+|---|---|---|---|---|
+| 1 | **1080p video** | `<slug>-vNN-1080.mp4` (1080×1920, h264, AAC audio) | render | ✅ always |
+| 2 | **2x video** | `<slug>-vNN-2x.mp4` (2160×3840, h264, `--scale=2`) | render | ✅ always |
+| 3 | **Cover image (grid-view)** | `<slug>-vNN-cover.png` (1080×1920, BIG italic title + bottom-right `XX/YY` counter in muted color) | render OR HTML→headless-chrome→PNG | ✅ always |
+| 4 | **Narration text** | `<slug>-narration-vNN.txt` (the locked manuscript) | written | ✅ always (durable script archive) |
+| 5 | **IG caption** | `chapter-N-ig.md` or `<slug>-ig.md` (~250 words, hashtag-tagged, paste-ready) | written | ✅ always |
+
+#### Optional artifacts (produce only when downstream destination calls for them)
+
+| # | Artifact | Naming convention | When to produce |
+|---|---|---|---|
+| 6 | Per-scene stills | `<slug>-vNN-slide-N.png` (1080×1920 each) | When individual stills will be republished separately (carousel posts, blog inline images, etc.) |
+| 7 | Long-form blog post | `<slug>-blog-vNN.md` (~1500-2000 words, expanded from the script) | When a brand destination (notagrouch.com, ocwebdesignstudio, oscarstech, etc.) wants the long-form companion |
+| 8 | LinkedIn / X variants | `<slug>-{linkedin,x}-vNN.md` | When cross-posting to those surfaces is in the brief |
+
+#### Delivery checklist (run before declaring a chapter shipped)
+
+```
+For chapter <N> of <series>:
+  [ ] 1080p MP4: rendered + ffprobe duration verified
+  [ ] 2x MP4: rendered + ffprobe duration verified
+  [ ] Cover PNG: 1080×1920 + title + XX/YY counter, sized for grid view
+  [ ] Narration text: locked manuscript saved as <slug>-narration-vNN.txt
+  [ ] IG caption: <slug>-ig.md or chapter-N-ig.md written + humanizer-grep clean
+  [ ] (optional) Per-scene stills, blog post, LinkedIn/X variants per brief
+  [ ] All required artifacts delivered to the brand destination (phone via Taildrop, repo commit, etc.)
+```
+
+**Anti-pattern caught 2026-06-17** (#680 captures the receipt): producing a 1500-word long-form blog when the destination called for a ~250-word IG caption. The bundle table above prevents this — IG caption is **always** required; long-form blog is **only** required when explicitly briefed for a long-form brand surface.
+
+**Anti-pattern from the same incident**: producing only the 1080p video without the 2x. Modern phone displays render the 2x cleanly; without it, viewers on retina screens see a soft video. The bundle table makes 2x non-optional.
+
+#### Empirical sources
+
+- **JC chapter pattern** (`ai-education/lectures/jennifers-circle/social/chapter-N-ig.md`) — IG caption shape; 8 chapters shipped this way
+- **€0.01 trial** (lifedash#637) — dual-format bundle (IG short + long-form blog) when the brief calls for both surfaces
+- **Dev-literacy #607 v03** (this skill's receipt) — confirmed the gap by failing the bundle
+
 ## Anti-patterns (do-NOT shortcuts)
 
 - **Atempo / rubberband / SoX to "fix pace"** — voice lock violation; see #2
