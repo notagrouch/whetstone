@@ -44,4 +44,4 @@ The hook runs `gitleaks` for secret scanning. Install via `brew install gitleaks
 
 ## License
 
-MIT. Assisted with Claude.
+MIT.
