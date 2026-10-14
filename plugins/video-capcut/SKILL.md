@@ -4,9 +4,12 @@ description: CapCut lens for short-form vertical video. Edit a CapCut desktop pr
 license: MIT
 prerequisites: [video-discipline]
 provides: capcut-project-json-editing
+status: draft
 ---
 
 # video-capcut
+
+> **Status: draft, not verified end to end.** Only the single-clip text-overlay path exists and it has not been round-tripped through the CapCut app. Multi-clip edits, silence removal, graphics, B-roll and captions are not built yet. Before using this skill, tell the user it is unfinished and offer to complete it first.
 
 CapCut is a project-file target, not a renderer you drive. The desktop app stores each project as plain JSON on disk. An agent can build or amend a timeline by editing those files, which is faster and more repeatable than clicking through the UI.
 
