@@ -28,7 +28,7 @@ This skill is **opinionated**. The opinions are receipts of what cost us iterati
 ## When NOT to use
 
 - Long-form video (>3 min) - pacing math and density floor differ
-- Live-action / camera-based video - this skill is illustrated/animated + TTS narration only
+- Live-action / camera-based video as a *generated* pipeline: the 5-stage render pipeline below is for illustrated/animated + TTS narration. For overlays and hooks on existing footage, use `video-capcut` and apply the pacing, density and delivery-bundle disciplines only
 - One-off explainer with no series continuity - the lock/reuse mechanics don't apply
 
 ## Engine selection (hard rule, not a suggestion)
@@ -37,6 +37,7 @@ This skill is **opinionated**. The opinions are receipts of what cost us iterati
 |---|---|---|
 | Series with >3 chapters, custom primitive library, React/TSX team | Remotion | `video-remotion` |
 | Single-shot short-form (<90s), social/explainer content, leverage prebuilt blocks | HyperFrames | `video-hyperframes` |
+| Existing footage (talking head, phone clip), overlays/hooks, creator finishes in CapCut | CapCut project JSON | `video-capcut` |
 | Active series mid-flight | Stay on the engine you started — never auto-migrate | Whichever sibling you're already using |
 
 **Reason:** the 12 disciplines below apply to any HTML-or-React-based renderer that uses headless Chrome + FFmpeg under the hood. But series work amortizes a custom primitive library; one-shot work benefits from prebuilt catalogs. Choose by use case, not preference.
@@ -239,6 +240,16 @@ For chapter <N> of <series>:
 - **€0.01 trial** (lifedash#637) — dual-format bundle (IG short + long-form blog) when the brief calls for both surfaces
 - **Dev-literacy #607 v03** (this skill's receipt) — confirmed the gap by failing the bundle
 
+## Footage-first work (overlay / hook edits on existing video)
+
+Not every job is a generated chapter. When source footage exists, the FACTS to STORYBOARD stages collapse into a one-line brief (the hook text and where it sits), but three disciplines still apply:
+
+- **Verify the source before building.** Probe orientation, duration and bitrate. A re-encoded or downscaled copy (for example a messaging-app transfer) caps final quality; fetch the original.
+- **Hook legibility is the density floor for footage.** A static talking-head clip needs a high-contrast hook layer in the first seconds. Check it at thumbnail size, not full screen.
+- **Delivery bundle still applies.** Final export, cover frame, and the caption text are separate artifacts. A project file alone is not a delivered video.
+
+Implementation details for CapCut live in `video-capcut`.
+
 ## Anti-patterns (do-NOT shortcuts)
 
 - **Atempo / rubberband / SoX to "fix pace"** — voice lock violation; see #2
@@ -324,6 +335,7 @@ This chapter's failure became two of the disciplines above.
 
 - **video-remotion** — Remotion-specific receipts (concurrency=2, ChapterReel-style monolith, 10px text safe-area, atempo-violation case study). Required when using Remotion as the renderer.
 - **video-hyperframes** — Thin lens over HeyGen's HyperFrames for short-form work. Required when using HyperFrames.
+- **video-capcut** - Edit CapCut project files directly for overlays and hooks on existing footage. Required when the deliverable is a CapCut project.
 
 ## Compatibility
 

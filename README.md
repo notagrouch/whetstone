@@ -15,19 +15,21 @@ Cross-platform agent skills, MCP servers, and tooling. General-purpose, standard
 
 Early stage. First plugin set landed: the **video skills stack** (three skills for short-form educational video production).
 
-## Video skills — three-skill stack
+## Video skills — four-skill stack
 
-The headline package is a three-skill video-production stack covering the same craft from three angles. Use them together: the engine-agnostic discipline skill is the prerequisite; one of the two engine-specific siblings handles render-stage details.
+The headline package is a four-skill video-production stack covering the same craft from several angles. Use them together: the engine-agnostic discipline skill is the prerequisite; one of the engine or target siblings handles the build stage.
 
 | Skill | Use for | Engine |
 |---|---|---|
 | [`plugins/video-discipline/`](plugins/video-discipline/) | The 12 disciplines, 5-stage pipeline (FACTS→MANUSCRIPT→SCENE→STORYBOARD→BUILD), failure-mode catalog, humanizer-grep gate. Engine-agnostic. | None — applies to any |
 | [`plugins/video-remotion/`](plugins/video-remotion/) | Remotion-specific receipts (concurrency=2, text safe-area at 1080×1920, atempo lock, ChapterReel-style monolith conventions). | [Remotion](https://www.remotion.dev/) |
 | [`plugins/video-hyperframes/`](plugins/video-hyperframes/) | Thin lens over HeyGen's HyperFrames (HTML+GSAP video engine). Adds the FACTS→MANUSCRIPT stage + humanizer-grep + version-control discipline that HyperFrames doesn't ship. | [HyperFrames](https://github.com/heygen-com/hyperframes) (pinned dependency) |
+| [`plugins/video-capcut/`](plugins/video-capcut/) | Edit CapCut desktop project files directly (JSON) to add footage, hook overlays and styled text on existing 9:16 video. Includes a script and a schema reference. | CapCut desktop (project-file target) |
 
 **Engine-selection rule (hard, not a suggestion):**
 - Multi-chapter series with continuity, custom primitive library → **Remotion** (`video-remotion`)
 - Single-shot short-form content under 90s, want HyperFrames' catalog blocks → **HyperFrames** (`video-hyperframes`)
+- Existing footage that needs overlays or hooks, finished in the CapCut app → **CapCut** (`video-capcut`)
 - Active series mid-flight → finish on whatever engine you started on; never auto-migrate
 
 See each skill's `SKILL.md` for the full instructions and `references/` for routing guides and failure-mode catalogs.
