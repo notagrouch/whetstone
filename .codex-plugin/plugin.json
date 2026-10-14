@@ -24,7 +24,7 @@
   "interface": {
     "displayName": "whetstone",
     "shortDescription": "Cross-platform agent skills with a video-production discipline stack",
-    "longDescription": "Whetstone is a public, standards-based monorepo of agent skills. The headline package is a four-skill video-production stack: video-discipline (engine-agnostic 12 disciplines + 5-stage pipeline), video-remotion (Remotion-specific receipts), and video-hyperframes (thin lens over HeyGen's HyperFrames), and video-capcut (CapCut project-file editing for overlays on existing footage). Designed to work across Claude Code, Copilot CLI, Cursor, Gemini CLI, and any MCP-aware agent client.",
+    "longDescription": "Whetstone is a public, standards-based monorepo of agent skills. The headline package is a four-skill video-production stack: video-discipline (engine-agnostic 12 disciplines + 5-stage pipeline), video-remotion (Remotion-specific receipts), video-hyperframes (thin lens over HeyGen's HyperFrames), and video-capcut (CapCut project-file editing for overlays on existing footage). Designed to work across Claude Code, Copilot CLI, Cursor, Gemini CLI, and any MCP-aware agent client.",
     "developerName": "notagrouch",
     "category": "Design",
     "capabilities": ["Read", "Write"],
